@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:a="http://java.sun.com/jsf/composite">
+<h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <h:outputStylesheet name="stl.css" library="css" />
+    <title>Лаборатоная работа №3</title>
+</h:head>
+<h:body>
+<header>
+    <h1>Маликов Александр. P3222 Вариант: 6699</h1>
+</header>
+    <div class="container">
+        <h:form id="choose-form">
+            <div id="x-select-container">
+                <h:outputLabel for="x-select-m2">Выберите X:</h:outputLabel>
+                <div>
+                    <div id="x-select-input">
+                        <div id="x-select">
+                            #{selectXBean.valueByDefault()}
+                            <h:commandLink validator="#{selectXBean.validateSelectX}" style="text-decoration: none;font-size: 26px;color: #91FD7E;padding: 10px 10px 10px 20px;" id="x-select-m4" value="-4">
+                                <f:ajax listener="#{selectXBean.valueChanged(-4.0)}" render="@form"/>
+                            </h:commandLink>
+                            <h:commandLink validator="#{selectXBean.validateSelectX}" style="text-decoration: none; font-size: 26px;color: #91FD7E; padding: 10px 10px 10px 20px;" id="x-select-m3" value="-3">
+                                <f:ajax listener="#{selectXBean.valueChanged(-3.0)}" render="@form"/>
+                            </h:commandLink>
+                            <h:commandLink validator="#{selectXBean.validateSelectX}" style="text-decoration: none; font-size: 26px;color: #91FD7E; padding: 10px 10px 10px 20px;" id="x-select-m2" value="-2">
+                                <f:ajax listener="#{selectXBean.valueChanged(-2.0)}" render="@form"/>
+                            </h:commandLink>
+                            <h:commandLink validator="#{selectXBean.validateSelectX}" style="text-decoration: none; font-size: 26px;color: #91FD7E; padding: 10px 10px 10px 20px;" id="x-select-m1" value="-1">
+                                <f:ajax listener="#{selectXBean.valueChanged(-1.0)}" render="@form"/>
+                            </h:commandLink>
+                            <h:commandLink validator="#{selectXBean.validateSelectX}" style="text-decoration: none; font-size: 26px;color: #91FD7E; padding: 10px 10px 10px 20px;" id="x-select-0" value="0">
+                                <f:ajax listener="#{selectXBean.valueChanged(0.0)}" render="@form"/>
+                            </h:commandLink>
+                            <h:commandLink validator="#{selectXBean.validateSelectX}" style="text-decoration: none; font-size: 26px;color: #91FD7E; padding: 10px 10px 10px 20px;" id="x-select-p1" value="1">
+                                <f:ajax listener="#{selectXBean.valueChanged(1.0)}" render="@form"/>
+                            </h:commandLink>
+                            <h:commandLink validator="#{selectXBean.validateSelectX}" style="text-decoration: none; font-size: 26px;color: #91FD7E; padding: 10px 10px 10px 20px;" id="x-select-p2" value="2">
+                                <f:ajax listener="#{selectXBean.valueChanged(2.0)}" render="@form"/>
+                            </h:commandLink>
+                            <h:commandLink validator="#{selectXBean.validateSelectX}" style="text-decoration: none; font-size: 26px;color: #91FD7E; padding: 10px 10px 10px 20px;" id="x-select-p3" value="3">
+                                <f:ajax listener="#{selectXBean.valueChanged(3.0)}" render="@form"/>
+                            </h:commandLink>
+                            <h:commandLink validator="#{selectXBean.validateSelectX}" style="text-decoration: none; font-size: 26px;color: #91FD7E; padding: 10px 10px 10px 20px;" id="x-select-p4" value="4">
+                                <f:ajax listener="#{selectXBean.valueChanged(4.0)}" render="@form"/>
+                            </h:commandLink>
+                        </div>
+                    </div>
+                    <h:message for="x-select-m2" id="x-select-error" class="error active" />
+                </div>
+            </div>
+            <div id="y-select-container" class="select-container margin">
+                <h:outputLabel for="y-select">Введите Y:</h:outputLabel>
+                <div class="select-input-container">
+                    <div id="y-select-input" class="select-input-container">
+                        <h:inputText id="y-select" value="#{selectYBean.value}" size="27" a:placeholder="Should be between -5 and 5"
+                                     validator="#{selectYBean.validateSelectY}">
+                            <f:validateLongRange minimum="-5" maximum="5" />
+                            <f:ajax execute="y-select" render="@form" />
+                        </h:inputText>
+                    </div>
+                    <h:message style="color: red" id="y-select-error" for="y-select" class="error active" />
+                </div>
+            </div>
+            <div id="r-select-container" class="select-container margin">
+                <h:outputLabel for="r-select">Выберите R:</h:outputLabel>
+                <div class="select-input-container">
+                    <p:spinner id="r-select" value="#{selectRBean.value}" min="1" max="3" stepFactor="0.5">
+                    <f:ajax execute="r-select" render="@form" />
+                        #{selectRBean.valueByDefault()}
+                    </p:spinner>
+                </div>
+            </div>
+            <div id="submit-container" class="margin">
+                <h:commandButton  style="background-color:#91FD7E; color: #605CB1; border-radius: 20px; font-size: 26px; padding: 12px;" id="submit-button" value="Проверить">
+                    <f:ajax execute="@form" listener="#{checkAreaResultsBean.newResult(selectXBean.value,
+                                        selectYBean.value, selectRBean.value)}" render="@form result-table" />
+                </h:commandButton>
+            </div>
+        </h:form>
+
+        <div style="margin-top: 230px; margin-left: 200px" id="result-table-container" class="blured-container margin">
+            <h:dataTable id="result-table" value="#{checkAreaResultsBean.results}" var="result">
+                <h:column>
+                    <f:facet name = "header">X</f:facet>
+                    #{result.x}
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">Y</f:facet>
+                    #{result.y}
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">R</f:facet>
+                    #{result.r}
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">Result</f:facet>
+                    #{result.result ? "Попадание" : "Промах"}
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">Executed at</f:facet>
+                    <h:outputText converter="localDateTimeConverter" value="#{result.executedAt}" />
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">Execution time</f:facet>
+                    #{result.execTime}
+                </h:column>
+            </h:dataTable>
+        </div>
+    </div>
+</h:body>
+</html>

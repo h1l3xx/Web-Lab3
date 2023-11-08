@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core" xml:lang="ru">
+
+<h:head>
+    <meta name="viewport" content="initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html" />
+    <h:outputStylesheet library="css" name="stl.css" />
+    <title>Лабораторная работа №3</title>
+    <style type="text/css">
+        .ui-analog-clock {
+            margin-left: 40.5%;
+            width: 300px;
+        }
+        .ui-clock{
+            margin-top: 30px;
+            margin-left: 40.5%;
+            width: 300px;
+            border-radius: 25px;
+        }
+        .btn{
+            margin-top: 30px;
+            margin-left: 42%;
+            width: 250px;
+            color: #605CB1;
+            background-color: #91FD7E;
+            border-radius: 25px;
+        }
+        .btn:hover{
+            background-color: #605CB1;
+            color: #91FD7E;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <div id="container" class="margin">
+        <div id="header">
+            <p align="center">Лабораторная работа №3</p>
+            <p align="center">Маликов Александр Максимович, P3222</p>
+            <p align="center">Вариант: 6699</p>
+        </div>
+        <div id="main" class="margin">
+            <div id="clock-container">
+                <h:form id="time-form" styleClass="margin">
+                    <p:clock displayMode="analog" mode="server" />
+                    <p:clock style="left: 40%" pattern="dd.MM.yyyy HH:mm:ss" mode="server" autoSync="true" syncInterval="11000" />
+                </h:form>
+                <h:form id="hiddenForm" style="display:none">
+                    <h:commandButton id="updateTime">
+                        <f:ajax render="time-form:updateable-time" />
+                    </h:commandButton>
+                </h:form>
+            </div>
+            <div id="redirect-container">
+                <h:form styleClass="margin">
+                    <h:commandButton styleClass="btn" id="redirect" action="goToPage2" value="Next page" />
+                </h:form>
+            </div>
+        </div>
+    </div>
+
+    <h:outputScript>
+        setInterval(function() {
+            document.getElementById("hiddenForm:updateTime").click();
+        }, 11000);
+    </h:outputScript>
+</h:body>
+
+</html>
